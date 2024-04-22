@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <!--
     If you are serving your web app in a path other than the root, change the
@@ -27,7 +28,7 @@
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="icon" type="image/png" href="favicon.png" />
 
   <title>project_9shop_admin</title>
   <link rel="manifest" href="manifest.json">
@@ -39,21 +40,45 @@
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
 </head>
+
 <body>
   <script>
-    window.addEventListener('load', function(ev) {
+    window.addEventListener('load', function (ev) {
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({
         serviceWorker: {
           serviceWorkerVersion: serviceWorkerVersion,
         },
-        onEntrypointLoaded: function(engineInitializer) {
-          engineInitializer.initializeEngine().then(function(appRunner) {
+        onEntrypointLoaded: function (engineInitializer) {
+          engineInitializer.initializeEngine().then(function (appRunner) {
             appRunner.runApp();
           });
         }
       });
     });
   </script>
+
+  <!-- kết nối firebase Web -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+
+  <script src="main.dart.js" type="application/javascript"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDw-EGpjos50SaaB2KBu_84BVkYSMpcU2A",
+      authDomain: "shop-f6af8.firebaseapp.com",
+      projectId: "shop-f6af8",
+      storageBucket: "shop-f6af8.appspot.com",
+      messagingSenderId: "1025357011797",
+      appId: "1:1025357011797:web:2ecf4910ee564e71db6ddc",
+      measurementId: "G-B5BZRVX178"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
 </body>
+
 </html>

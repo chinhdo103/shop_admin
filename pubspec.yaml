@@ -13,11 +13,58 @@ dependencies:
   flutter:
     sdk: flutter
 
-
+  google_fonts: ^6.1.0
   cupertino_icons: ^1.0.2
   flutter_admin_scaffold: ^1.2.0
   flutter_iconly: ^1.0.2
   date_time_format: ^2.0.1
+  # firebase connect
+  firebase_core: ^2.19.0
+  cloud_firestore: ^4.11.0
+  firebase_storage: ^11.3.1
+
+   # firebase connect end
+  file_picker: ^6.0.0
+  flutter_easyloading: ^3.0.5
+  fluttertoast: ^8.2.2
+  mime_type: ^1.0.0
+  path: ^1.8.3
+  chips_choice: ^3.0.1
+  
+
+  firebase_auth: ^4.14.0
+
+  # ghi nhớ đăng nhập (admin)
+  shared_preferences: ^2.2.2
+
+  data_table_2: ^2.5.9
+
+  uuid: ^4.2.1
+  provider: ^6.1.1
+  intl: ^0.18.1
+  flutter_masked_text2: ^0.9.1
+  ars_dialog: ^1.0.8
+  # others
+  syncfusion_flutter_pdf: ^23.2.7
+  printing: ^5.11.1
+  path_provider: ^2.1.1
+  fl_chart: ^0.66.0 
+  cached_network_image: ^3.3.0
+  xen_popup_card: ^0.0.3+2
+  pdf: ^3.10.7
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -36,7 +83,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   # assets:
-  #   - images/a_dot_burr.jpeg
+  #   - assets/fonts/OpenSans-Light.ttf
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -50,10 +98,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: Schyler
+      fonts:
+        - asset: assets/fonts/OpenSans-Light.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

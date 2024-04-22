@@ -1,143 +1,60 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_admin_scaffold/admin_scaffold.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:project_9shop_admin/screens/category_screen.dart';
-import 'package:project_9shop_admin/screens/dashboard_screen.dart';
-import 'package:date_time_format/date_time_format.dart';
-import 'package:project_9shop_admin/screens/main_category_screen.dart';
-import 'package:project_9shop_admin/screens/sub_category_screen.dart';
+import 'dart:html';
+import 'dart:ui';
 
-void main() {
-  runApp(const MyApp());
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:project_9shop_admin/provider/order_provider.dart';
+import 'package:project_9shop_admin/screens/login_screen_v2.dart';
+import 'package:provider/provider.dart';
+import 'dart:ui_web' as uiWeb;
+
+void main() async {
+  uiWeb.platformViewRegistry.registerViewFactory(
+      'example', (_) => DivElement()..innerText = 'Hello, HTML!');
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+      options: const FirebaseOptions(
+          apiKey: "AIzaSyDw-EGpjos50SaaB2KBu_84BVkYSMpcU2A",
+          authDomain: "shop-f6af8.firebaseapp.com",
+          projectId: "shop-f6af8",
+          storageBucket: "shop-f6af8.appspot.com",
+          messagingSenderId: "1025357011797",
+          appId: "1:1025357011797:web:2ecf4910ee564e71db6ddc",
+          measurementId: "G-B5BZRVX178"));
+
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => OrderProvider(),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class DefaultFirebaseOptions {}
 
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      scrollBehavior: const MaterialScrollBehavior().copyWith(
+        dragDevices: {PointerDeviceKind.mouse},
+      ),
       debugShowCheckedModeBanner: false,
-      title: '9Shop Admin',
-      theme: ThemeData(
-        primarySwatch: Colors.indigo,
-      ),
-      home: const SlideMenu(),
-    );
-  }
-}
-
-class SlideMenu extends StatefulWidget {
-  static const String id = 'slide-menu';
-
-  const SlideMenu({super.key});
-
-  @override
-  State<SlideMenu> createState() => _SlideMenuState();
-}
-
-class _SlideMenuState extends State<SlideMenu> {
-  Widget _selectedScreen = const DashBoardScreen();
-  final dateTime = DateTime.now();
-  screenSelector(item) {
-    switch (item.route) {
-      case DashBoardScreen.id:
-        setState(() {
-          _selectedScreen = const DashBoardScreen();
-        });
-        break;
-      case CategoryScreen.id:
-        setState(() {
-          _selectedScreen = const CategoryScreen();
-        });
-        break;
-      case MainCategoryScreen.id:
-        setState(() {
-          _selectedScreen = const MainCategoryScreen();
-        });
-        break;
-      case SubCategoryScreen.id:
-        setState(() {
-          _selectedScreen = const SubCategoryScreen();
-        });
-        break;
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AdminScaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text(
-          'Trang Quản Lý 9Shop',
-          style: TextStyle(letterSpacing: 1),
-        ),
-      ),
-      sideBar: SideBar(
-        items: const [
-          AdminMenuItem(
-            title: 'Tổng Quan',
-            route: DashBoardScreen.id,
-            icon: Icons.dashboard,
-          ),
-          AdminMenuItem(
-            title: 'Các Danh Mục',
-            icon: IconlyLight.category,
-            children: [
-              AdminMenuItem(
-                title: 'Danh Mục',
-                route: CategoryScreen.id,
-              ),
-              AdminMenuItem(
-                title: 'Danh Mục Chính',
-                route: MainCategoryScreen.id,
-              ),
-              AdminMenuItem(
-                title: 'Danh Mục Phụ',
-                route: SubCategoryScreen.id,
-              ),
-            ],
-          ),
-        ],
-        selectedRoute: SlideMenu.id,
-        onSelected: (item) {
-          screenSelector(item);
-          // if (item.route != null) {
-          //   Navigator.of(context).pushNamed(item.route!);
-          // }
-        },
-        header: Container(
-          height: 50,
-          width: double.infinity,
-          color: const Color(0xff444444),
-          child: const Center(
-            child: Text(
-              'Danh Mục',
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
-        footer: Container(
-          height: 50,
-          width: double.infinity,
-          color: const Color(0xff444444),
-          child: Center(
-            child: Text(
-              // ignore: unnecessary_string_interpolations
-              '${DateTimeFormat.format(DateTime.now(), format: AmericanDateFormats.dayOfWeek)}',
-              style: const TextStyle(
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: _selectedScreen,
-      ),
+      home: LoginScreenV2(),
+      builder: EasyLoading.init(),
     );
   }
 }
